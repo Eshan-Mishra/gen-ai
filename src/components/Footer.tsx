@@ -18,7 +18,7 @@ export default function Footer() {
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
                 <img
-                  src="./public/G.png"
+                  src="/G.png"
                   alt="Google Developer Group"
                   className="h-6"
                 />

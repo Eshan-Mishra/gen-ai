@@ -19,7 +19,7 @@ export default function Header() {
         <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
             
-            <img src="./public/G.png" alt="Logo" className="w-8 h-8" />
+            <img src="/G.png" alt="Logo" className="w-8 h-8" />
             <span className="text-xl font-bold">Google Development Group | GenAI</span>
           </Link>
           <div className="flex items-center space-x-6">
