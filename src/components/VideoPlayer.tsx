@@ -24,7 +24,7 @@ export default function VideoPlayer({ videoId, onComplete }: VideoPlayerProps) {
       const newPlayer = new window.YT.Player('youtube-player', {
         height: '360',
         width: '640',
-        videoId:'1CSNcqGFv2o',
+        videoId:'Hno7CKNWW0U',
         playerVars: {
           autoplay: 0,
           controls: 1,
