@@ -7,6 +7,7 @@ import Quiz from '../components/Quiz';
 import PriceTag from '../components/PriceTag';
 import EnrollmentStats from '../components/EnrollmentStats';
 import CompletionModal from '../components/CompletionModal';
+import validCodes from '../utils/../data/valid-codes.csv?raw';
 
 export default function CoursePage() {
   const { courseId } = useParams();
@@ -46,7 +47,7 @@ export default function CoursePage() {
       return;
     }
 
-    const valid = ['ABC123', 'XYZ789', 'DEF456'].includes(code.trim());
+    const valid = validCodes.includes(code.trim());
     setIsValid(valid);
     if (valid) {
       localStorage.setItem('student-name', name.trim());
