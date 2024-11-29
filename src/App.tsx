@@ -5,6 +5,7 @@ import TopicSections from './components/sections/TopicSections';
 import CourseSection from './components/CourseSection';
 import CoursePage from './pages/CoursePage';
 import Footer from './components/Footer';
+import { Analytics } from "@vercel/analytics/react"
 
 function HomePage() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
           </Routes>
         </main>
         <Footer />
+        <Analytics />
       </div>
     </Router>
   );
