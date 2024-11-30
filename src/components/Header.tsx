@@ -36,15 +36,19 @@ export default function Header() {
                   <span>Logout</span>
                 </button>
               </div>
-            ) : (
+            ) 
+            : (
               <button
                 onClick={() => setShowAuth(true)}
                 className="bg-white text-purple-700 px-4 py-2 rounded-lg font-semibold
                          hover:bg-purple-100 transition-colors"
+                disabled
+                style={{ display: 'none' }}
               >
                 Login
               </button>
-            )}
+            )
+            }
           </div>
         </nav>
       </header>
