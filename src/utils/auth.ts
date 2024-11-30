@@ -1,4 +1,6 @@
 import bcrypt from 'bcryptjs';
+import fs from 'fs';
+import path from 'path';
 
 interface User {
   email: string;
@@ -7,6 +9,12 @@ interface User {
   registrationCode: string;
 }
 
+const getValidCodes = (): string[] => {
+  const filePath = path.resolve(__dirname, 'valid-code.csv');
+  const data = fs.readFileSync(filePath, 'utf8');
+  return data.split('\n').map(code => code.trim());
+};
+
 export const registerUser = async (email: string, password: string, name: string, code: string) => {
   try {
     const users = getUsers();
@@ -14,7 +22,7 @@ export const registerUser = async (email: string, password: string, name: string
       throw new Error('Email already registered');
     }
 
-    const validCodes = ['ABC123', 'XYZ789', 'DEF456', 'GHI789', 'JKL012'];
+    const validCodes = getValidCodes();
     if (!validCodes.includes(code)) {
       throw new Error('Invalid registration code');
     }
