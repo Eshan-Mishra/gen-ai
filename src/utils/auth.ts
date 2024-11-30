@@ -10,7 +10,7 @@ interface User {
 }
 
 const getValidCodes = (): string[] => {
-  const filePath = path.resolve(__dirname, 'valid-code.csv');
+  const filePath = path.resolve(__dirname, '../../data/valid-codes.csv');
   const data = fs.readFileSync(filePath, 'utf8');
   return data.split('\n').map(code => code.trim());
 };
