@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 
 interface VideoPlayerProps {
-  videoId: 'Hno7CKNWW0U';
+  videoId: string;
   onComplete: () => void;
 }
 

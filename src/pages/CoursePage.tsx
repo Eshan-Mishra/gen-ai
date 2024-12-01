@@ -47,7 +47,8 @@ export default function CoursePage() {
       return;
     }
 
-    const valid = validCodes.includes(code.trim());
+    const validCodesArray = validCodes.split('\n').map(code => code.trim());
+    const valid = validCodesArray.includes(code.trim());
     setIsValid(valid);
     if (valid) {
       localStorage.setItem('student-name', name.trim());
