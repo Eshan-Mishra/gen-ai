@@ -9,10 +9,19 @@ interface User {
   registrationCode: string;
 }
 
-const getValidCodes = (): string[] => {
-  const filePath = path.resolve(__dirname, '../../data/valid-codes.csv');
+interface ValidCode {
+  code: string;
+  name: string;
+  feesPaid: string;
+}
+
+const getValidCodes = (): ValidCode[] => {
+  const filePath = path.resolve(__dirname, '../../data/GDSC.csv');
   const data = fs.readFileSync(filePath, 'utf8');
-  return data.split('\n').map(code => code.trim());
+  return data.split('\n').slice(1).map(line => {
+    const [ , name, , code, , feesPaid ] = line.split(',').map(field => field.trim());
+    return { code, name, feesPaid };
+  });
 };
 
 export const registerUser = async (email: string, password: string, name: string, code: string) => {
@@ -23,8 +32,12 @@ export const registerUser = async (email: string, password: string, name: string
     }
 
     const validCodes = getValidCodes();
-    if (!validCodes.includes(code)) {
-      throw new Error('Invalid registration code');
+    const validCode = validCodes.find(vc => vc.code === code && vc.name.toLowerCase() === name.toLowerCase());
+    if (!validCode) {
+      throw new Error('Invalid registration code or name');
+    }
+    if (validCode.feesPaid.toLowerCase() === 'unpaid') {
+      throw new Error('Fees not paid');
     }
 
     const salt = await bcrypt.genSalt(10);

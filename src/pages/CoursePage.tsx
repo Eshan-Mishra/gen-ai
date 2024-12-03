@@ -7,7 +7,7 @@ import Quiz from '../components/Quiz';
 import PriceTag from '../components/PriceTag';
 import EnrollmentStats from '../components/EnrollmentStats';
 import CompletionModal from '../components/CompletionModal';
-import validCodes from '../utils/../data/valid-codes.csv?raw';
+import validCodes from '../data/GDSC.csv?raw';
 
 export default function CoursePage() {
   const { courseId } = useParams();
@@ -47,16 +47,27 @@ export default function CoursePage() {
       return;
     }
 
-    const validCodesArray = validCodes.split('\n').map(code => code.trim());
-    const valid = validCodesArray.includes(code.trim());
-    setIsValid(valid);
-    if (valid) {
-      localStorage.setItem('student-name', name.trim());
-      setTimeout(() => {
-        setIsModalOpen(false);
-        setShowContent(true);
-      }, 1500);
+    const validCodesArray = validCodes.split('\n').slice(1).map(line => {
+      const [ , csvName, , csvCode, , feesPaid ] = line.split(',').map(field => field.trim());
+      return { code: csvCode, name: csvName, feesPaid };
+    });
+
+    const validCode = validCodesArray.find(vc => vc.code === code.trim() && vc.name.toLowerCase() === name.trim().toLowerCase());
+    if (!validCode) {
+      setIsValid(false);
+      return;
     }
+    if (validCode.feesPaid.toLowerCase() === 'unpaid') {
+      setIsValid(false);
+      return;
+    }
+
+    setIsValid(true);
+    localStorage.setItem('student-name', name.trim());
+    setTimeout(() => {
+      setIsModalOpen(false);
+      setShowContent(true);
+    }, 1500);
   };
 
   return (
